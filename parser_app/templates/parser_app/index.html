@@ -1,0 +1,37 @@
+{% extends 'parser_app/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4>🔍 Парсинг статьи</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'parse' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">URL статьи:</label>
+                        {{ form.url }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">🚀 Запустить парсинг</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5>📋 Последние статьи</h5>
+            </div>
+            <div class="card-body">
+                {% for paper in recent_papers %}
+                    <a href="{% url 'result' paper.paper_id %}" class="list-group-item list-group-item-action">
+                        <h6>{{ paper.title|truncatechars:80 }}</h6>
+                        <small>{{ paper.publication_year }} | {{ paper.work_type }}</small>
+                    </a>
+                {% empty %}
+                    <p class="text-muted">Пока нет статей</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

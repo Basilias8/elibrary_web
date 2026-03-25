@@ -1,0 +1,21 @@
+{% extends 'parser_app/base.html' %}
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-success text-white">
+        <h4>✅ Статья сохранена!</h4>
+    </div>
+    <div class="card-body">
+        <h5>{{ paper.title }}</h5>
+        <table class="table table-bordered mt-3">
+            <tr><th>Год:</th><td>{{ paper.publication_year }}</td></tr>
+            <tr><th>Тип:</th><td>{{ paper.work_type }}</td></tr>
+            <tr><th>Страниц:</th><td>{{ paper.pages_count }}</td></tr>
+            <tr><th>Место:</th><td>{{ paper.place_of_publication }}</td></tr>
+        </table>
+        <h6>Авторы:</h6>
+        <ul>{% for pa in authors %}<li>{{ pa.author.fullname }}</li>{% endfor %}</ul>
+        <a href="{{ paper.url }}" target="_blank" class="btn btn-info">🔗 Открыть на eLibrary</a>
+        <a href="{% url 'index' %}" class="btn btn-secondary">← На главную</a>
+    </div>
+</div>
+{% endblock %}
